@@ -1,0 +1,94 @@
+node_id|image|label|html_content|color
+1|d1|Természet|A Rajna mélye mint differenciálatlan természet; embrió-motívum|green
+2|d2|Rajna|Az első mozgás a Rajna mélyén, mint a tudat előérzete|lightblue
+3|d3|Erda|Erda, a Földanya mint az ősi bölcsesség|lightblue
+4|d4|Az istenek alkonya|Az istenek alkonya: visszatérés az anyatermészetbe|lightblue
+5|d5|Bukás|Az istenek alkonya, a régi rend bukása; Götternot|lightblue
+6|d6|Freia, mint szerelem|Freia mint a fiatal szerelem megtestesítője|lightblue
+7|d7|Freia aranyalmái|Freia aranyalmái mint az öröm és a halhatatlanság jelképei|lightblue
+8|d8|A gyűrű|A gyűrű mint az Én alapvető célja|gold
+9|d9|Töprengés|Céltudatos töprengés|lightblue
+10|d10|A Nornák kötele|A Nornák kötele, a sors fonala|lightblue
+11|d11|Engesztelés|Az engesztelés mint a sors hatalma|lightblue
+12|d12|Kötelesség|A kötelesség mint a sors kifejeződése|lightblue
+13|d13|Az átok|Alberich átka mint az átalakulásra késztető erő|lightblue
+14|d14|Wotan szerződései|Wotan szerződései: a szerződések szentsége, a sors kifejeződése|lightblue
+15|d15|Alberich akarata|Alberich mohó akarata mint a sors hatalma; a Nibelungok gyűlölködése|lightblue
+16|d16|Varázslatos álom|Varázslatos álom: visszaesés az öntudatlanságba|lightblue
+17|d17|A Vándor|Wotan, a vándor mint a bölcs öregember, aki kapcsolatban áll a tudattalannal|lightblue
+18|d18|A ködsüveg|A Ködsüveg mint az öntudatlan fantázia|lightblue
+19|d19|A varázsital|A varázsital mint az öntudat elnyomása|lightblue
+20|d20|Loge, mint tűz|Loge, a tűz istene mint a tudattalanból előtörő ősenergia|lightblue
+21|d21|Ármányos Loge|Loge mint az ősenergia ambivalenciája: hízelgés és csalás|lightblue
+22|d22|Walkűrök|A walkűrök mint az ősenergia cselekvés közben; Walkürenruf|lightblue
+23|d23|A Nornák|A Nornák mint az öntudat előérzetei|lightblue
+24|d24|Sötétség|Sötétség mint az öntudatlanság szimbóluma|lightblue
+25|d25|Napfény|Napfény mint az öntudat visszatérése; Weltbegrüßung|lightblue
+26|d26|Rajnai sellők|A rajnai sellők dala mint az éretlen ártatlanságba való visszatérés csábítása|lightblue
+27|d27|Az erdő madara|Az erdei madár éneke mint az éretlen ártatlanság kezdeményezője|lightblue
+28|d28|Ártatlan öröm|A napfény csillogása az aranyon a víz alatt, mint a gyermekkor ártatlan emléke|lightblue
+29|d29|Erdei susogások|Az erdei susogások mint Siegfried gyermeki ártatlansága és játékos gondolatai|lightblue
+30|d30|Ártatlan alvás|Brünnhilde ártatlan álomba merülése, amelyből nővé érve ébred majd|lightblue
+31|d31|A Rajna kincse|Rheingold! Rheingold!|lightblue
+32|d32|Rajnai sellők az Istenek alkonyában|A rajnai sellők éneke az Istenek alkonyában|lightblue
+33|d33|Rajnai sellők öröme|A rajnai sellők csalóka öröme|lightblue
+34|d34|Ártatlan öröm|Valódi, ártatlan öröm|lightblue
+35|d35|Siegmund|Siegmund mint a balszerencsében edzett hős|lightblue
+36|d36|Sieglinde|Sieglinde mint a balszerencsében edzett hősnő|lightblue
+37|d37|Siegmund és Sieglinde szerelme|Siegmund és Sieglinde szerelme|lightblue
+38|d38|Boldogság|Boldogság és a boldogság utáni vágy|lightblue
+39|d39|Az ital|Az ital, amely összeköti Siegmund és Sieglinde sorsát|lightblue
+40|d40|Gutrune|Gutrune mint a bukásra rendelt hősnő|lightblue
+41|d41|A Gibichungok|A Gibichung testvérpár mint bukásra rendelt páros|lightblue
+42|d42|Ígéretek|Tisztességes szándékok, a jóhiszeműség látszata; az ígéretek betartásának látszata, a normális élet iránti vágy|lightblue
+43|d43|Nothung|Nothung mint az ígért vagy vágyott kard|lightblue
+44|d44|Arany, mint érték|Az arany mint valódi érték|lightblue
+45|d45|Kard, mint férfiasság|A kard mint a valódi férfiasság jelképe|lightblue
+46|d46|Vihar|A vihar mint a férfias erő szelleme; Donner|lightblue
+47|d47|A walkűrök lovaglása|A walkűrök mint a nők férfias része|lightblue
+48|d48|Siegfried kürtje|Siegfried kürtje mint szabad szellemének jelképe|lightblue
+49|d49|Hagen napja|Hagen napjának hajnala|lightblue
+50|d50|Mime, mint a kovács|Mime mint a kovács, illetve általában a kovácsolás|lightblue
+51|d51|Mime, a makacs|Mime kitartása és megszállottsága|lightblue
+52|d52|Siegfried, mint kovács|Siegfried hősies kovácsolása mint ifjú lendületének kifejezése|lightblue
+53|d53|Siegfried ereje|Siegfried ifjú ereje, az élet szeretete|lightblue
+54|d54|Hagen vazallusai|A vazallusok mint a férfiak erős világa|lightblue
+55|d55|Siegfried merészsége|Siegfried lendülete a szerelemben; Liebesentschluß|lightblue
+56|d56|Siegfried szabadsága|Siegfried bonyodalmaktól mentes, hősi szabadsága|lightblue
+57|d57|Fafner|Fafner mint a tehetetlenség, az öntudatot hátrahúzó erő; Schlangenwurm|lightblue
+58|d58|Óriások ereje|Az óriások mint a brutális erő megtestesítői; Fafner mint sárkány|lightblue
+59|d59|Óriás tekintélye|Az óriások mint a szülői tekintély brutális aspektusa|lightblue
+60|d60|Hunding|Hunding mint Siegmund sötét árnyéka|lightblue
+61|d61|Hagen|Hagen mint Siegfried sötét árnyéka; a Gibichung-nemzetség negatív aspektusa|lightblue
+62|d62|Halál|A halál sötétsége (Siegfried temetési menete)|lightblue
+63|d63|Valhalla|Valhalla mint teljesítmény; Wotan eredeti, teremtő gondolatai|lightblue
+64|d64|Szivárványhíd|A szivárványhíd Valhallába|lightblue
+65|d65|Siegfried tettei|Siegfried hősi tettei mint az örökké újjászülető ifjúság szelleme|lightblue
+66|d66|A Wälsungok tragédiája|A Wälsung-nemzetség tragikus, de hősi sorsa|lightblue
+67|d67|Gunter, mint hős|Gunther illúziókkal terhelt hősiessége,<br>amely a Wälsung-nemzetség árnyakkal terhelt gyengeségére utal,<br>például: Siegfried Gunther árnyékának egy része|lightblue
+68|d68|Vész vagy bánat|Vész vagy bánat, akár elfogadják, akár nem|lightblue
+69|d69|Agitáció|Agitáció, beleértve a szenvedélyt és az együttérzést; Flucht|lightblue
+70|d70|Wotan csalódása|Wotan csalódása|lightblue
+71|d71|Mime dühe|Mime dühe|lightblue
+72|d72|Mime panaszkodása|Mime panaszkodása|lightblue
+73|d73|Wotan lándzsája|A lándzsa Wotan erős akaratának és a szerződéseknek a jelképe, amelyek egyben korlátozzák is őt|lightblue
+74|d74|A vihar|A vihar a Walkűr nyitányából, mint Wotan ellenállása a sorssal szemben|lightblue
+75|d75|Nyugtalan szövés|Nyugtalan szövés vagy nyugtalanság; Rachebund (szövetség)|lightblue
+76|d76|Lemondás|Lemondás, gyakran a sors elfogadásával együtt|lightblue
+77|d77|Wälsungok, mint sors|A Wälsung-nemzetség mint a sors eszköze|lightblue
+78|d78|Siegfried hősiessége|Siegfried hősiessége mint sorsának elfogadása|lightblue
+79|d79|Elfogadott sors|Az elfogadott sors|lightblue
+80|d80|Odaadás|Odaadás, különösen Siegfriedé Brünnhilde iránt, mint a sors által elrendelt kötelék|lightblue
+81|d81|Elfogadott bánat|A bánat mint az elkerülhetetlen szenvedés elfogadása|lightblue
+82|d82|Wotan bánata|Wotan bánata Brünnhildétől való búcsúzásakor|lightblue
+83|d83|Lemondás|Lemondás|lightblue
+84|d84|Erőteljes sors|A sors mint az a hatalom, amelynek végül mindenki engedelmeskedik|lightblue
+85|d85|Elkerülhetetlen sors|A sors elkerülhetetlensége|lightblue
+86|d86|Siegmund szerelmi dala|Siegmund dala a tavasz közeledtéről, mint a Sieglindével megélt beteljesülés tapasztalata<br>(Donnington megjegyzi, hogy bár szép és emlékezetes dallam,<br>áriajellege miatt kissé kilóg a Ring zenei szövetéből)|lightblue
+87|d87|Brünnhilde szerelme|Brünnhilde szent szerelme|lightblue
+88|d88|Brünnhilde, mint nő|Brünnhilde mint szerető nő|lightblue
+89|d89|Siegfried szerelme|Siegfried gyengéd szerelme Brünnhilde iránt|lightblue
+90|d90|Szerelem, mint beteljesülés|A szerelem mint beteljesülés|lightblue
+91|d91|Átváltozás|Átváltozás|lightblue
+92|w4|Fenyegetés|Alberich ököllel fenyegeti a rajnai sellőket|lightblue
+94|m20|Nibelheim|A Nibelungok otthona; éjszaka, kapzsiság, neheztelés|lightblue

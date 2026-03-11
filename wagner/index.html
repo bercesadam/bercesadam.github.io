@@ -1,0 +1,204 @@
+<html>
+   <head>
+      <meta charset="utf-8">
+	  <meta property="og:image" content="og-preview.png" />
+      <script src="lib/bindings/utils.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer"
+         />
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <center>
+         <h1></h1>
+      </center>
+      <!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+         <script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous" />
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+      <center>
+         <h1></h1>
+      </center>
+      <style type="text/css">
+         audio { width: 200px; }
+         #mynetwork {
+         width: 100%;
+         height: 100%;
+         background-color: #ffffff;
+         border: 1px solid lightgray;
+         position: relative;
+         float: left;
+         }
+      </style>
+   </head>
+   <body>
+      <div id="mynetwork" class="card-body"></div>
+      <script type="text/javascript">
+         // initialize global variables.
+         var edges;
+         var nodes;
+         var allNodes;
+         var allEdges;
+         var nodeColors;
+         var originalNodes;
+         var network;
+         var container;
+         var options, data;
+         var filter = {
+             item : '',
+             property : '',
+             value : []
+         };
+         
+         /// Add in this js function here after the global variables declaration
+         function htmlTitle(html) {
+         const container = document.createElement("div");
+         container.innerHTML = html;
+         return container;
+           }; 
+         
+         
+         
+         
+         
+         
+         // This method is responsible for drawing the graph, returns the drawn network
+         function drawGraph() {
+             var container = document.getElementById('mynetwork');
+         
+             
+         
+             // parsing and collecting nodes and edges from the python
+             var myNodes = [{"color": "green", "id": 1, "label": "Term\u00e9szet", "shape": "box", "title": "A Rajna m\u00e9lye, mint a differenci\u00e1latlan term\u00e9szet; Ebri\u00f3mot\u00edvum\u003cbr\u003e\u003cimg src=\"d1.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d1.mp3\" controls\u003e"}, {"color": "lightblue", "id": 2, "label": "Rajna", "shape": "box", "title": "Az els\u0151 mozg\u00e1s a Rajna alatt, mint a tudat el\u0151\u00e9rzete\u003cbr\u003e\u003cimg src=\"d2.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d2.mp3\" controls\u003e"}, {"color": "lightblue", "id": 3, "label": "Erda", "shape": "box", "title": "Erda, a F\u00f6ldanya, mint az \u0151si b\u00f6lcsess\u00e9g\u003cbr\u003e\u003cimg src=\"d3.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d3.mp3\" controls\u003e"}, {"color": "lightblue", "id": 4, "label": "Az istenek alkonya", "shape": "box", "title": "Az istenek alkonya, vissza az anyaterm\u00e9szetbe\u003cbr\u003e\u003cimg src=\"d4.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d4.mp3\" controls\u003e"}, {"color": "lightblue", "id": 5, "label": "Buk\u00e1s", "shape": "box", "title": "Az istenek alkonya, a r\u00e9gi rend buk\u00e1sa; G\u00f6tternoth\u003cbr\u003e\u003cimg src=\"d5.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d5.mp3\" controls\u003e"}, {"color": "lightblue", "id": 6, "label": "Freia, mint szerelem", "shape": "box", "title": "Freia, mint a fiatal szerelem\u003cbr\u003e\u003cimg src=\"d6.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d6.mp3\" controls\u003e"}, {"color": "lightblue", "id": 7, "label": "Freia aranyalm\u00e1i", "shape": "box", "title": "Freia aranyalm\u00e1i, mint az \u00f6r\u00f6m \u00e9s halhatatlans\u00e1g jelk\u00e9pe\u003cbr\u003e\u003cimg src=\"d7.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d7.mp3\" controls\u003e"}, {"color": "gold", "id": 8, "label": "A gy\u0171r\u0171", "shape": "box", "title": "A gy\u0171r\u0171 mint az \u00c9n alapvet\u0151 c\u00e9lja\u003cbr\u003e\u003cimg src=\"d8.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d8.mp3\" controls\u003e"}, {"color": "lightblue", "id": 9, "label": "T\u00f6preng\u00e9s", "shape": "box", "title": "C\u00e9ltudatos t\u00f6preng\u00e9s\u003cbr\u003e\u003cimg src=\"d9.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d9.mp3\" controls\u003e"}, {"color": "lightblue", "id": 10, "label": "A Norn\u00e1k k\u00f6tele", "shape": "box", "title": "A Norn\u00e1k k\u00f6tele, sors\u003cbr\u003e\u003cimg src=\"d10.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d10.mp3\" controls\u003e"}, {"color": "lightblue", "id": 11, "label": "Engesztel\u00e9s", "shape": "box", "title": "Az engesztel\u00e9s, mint a sors hatalma\u003cbr\u003e\u003cimg src=\"d11.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d11.mp3\" controls\u003e"}, {"color": "lightblue", "id": 12, "label": "K\u00f6teless\u00e9g", "shape": "box", "title": "K\u00f6teless\u00e9g, mint a sors kifejez\u00e9se\u003cbr\u003e\u003cimg src=\"d12.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d12.mp3\" controls\u003e"}, {"color": "lightblue", "id": 13, "label": "Az \u00e1tok", "shape": "box", "title": "Alberich \u00e1tka, mint az \u00e1talakul\u00e1sra k\u00e9sztet\u0151 er\u0151\u003cbr\u003e\u003cimg src=\"d13.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d13.mp3\" controls\u003e"}, {"color": "lightblue", "id": 14, "label": "Wotan szerz\u0151d\u00e9sei", "shape": "box", "title": "Wotan szerz\u0151d\u00e9sei, a szerz\u0151d\u00e9sek szents\u00e9ge, a sors kifejez\u0151d\u00e9se\u003cbr\u003e\u003cimg src=\"d14.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d14.mp3\" controls\u003e"}, {"color": "lightblue", "id": 15, "label": "Alberich akarata", "shape": "box", "title": "Alberich moh\u00f3 akarata, mint a sors hatalma, a Nibelungok gy\u0171l\u00f6lk\u00f6d\u00e9se\u003cbr\u003e\u003cimg src=\"d15.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d15.mp3\" controls\u003e"}, {"color": "lightblue", "id": 16, "label": "Var\u00e1zslatos \u00e1lom", "shape": "box", "title": "Var\u00e1zslatos \u00e1lom, visszaes\u00e9s az \u00f6ntudatlans\u00e1gba\u003cbr\u003e\u003cimg src=\"d16.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d16.mp3\" controls\u003e"}, {"color": "lightblue", "id": 17, "label": "A V\u00e1ndor", "shape": "box", "title": "Wotan, a v\u00e1ndor, mint a b\u00f6lcs \u00f6regember, aki kapcsolatban \u00e1ll a tudattalannal\u003cbr\u003e\u003cimg src=\"d17.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d17.mp3\" controls\u003e"}, {"color": "lightblue", "id": 18, "label": "A k\u00f6ds\u00fcveg", "shape": "box", "title": "A K\u00f6ds\u00fcveg, mint \u00f6ntudatlan fant\u00e1zia\u003cbr\u003e\u003cimg src=\"d18.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d18.mp3\" controls\u003e"}, {"color": "lightblue", "id": 19, "label": "A Var\u00e1zsital", "shape": "box", "title": "A var\u00e1zslatos ital, mint az \u00f6ntudat elnyom\u00e1sa\u003cbr\u003e\u003cimg src=\"d19.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d19.mp3\" controls\u003e"}, {"color": "lightblue", "id": 20, "label": "Loge, mint t\u0171z", "shape": "box", "title": "Loge a t\u0171z istene, mint a tudattalanb\u00f3l el\u0151t\u00f6r\u0151 \u0151senergia\u003cbr\u003e\u003cimg src=\"d20.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d20.mp3\" controls\u003e"}, {"color": "lightblue", "id": 21, "label": "\u00c1rm\u00e1nyos Loge", "shape": "box", "title": "Loge, mint az \u0151senergia ambivalenci\u00e1ja; h\u00edzelg\u00e9s, csal\u00e1s\u003cbr\u003e\u003cimg src=\"d21.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d21.mp3\" controls\u003e"}, {"color": "lightblue", "id": 22, "label": "Walk\u0171r\u00f6k", "shape": "box", "title": "A Walk\u00fcr\u00f6k, mint az \u0151senergia cselekv\u00e9s k\u00f6zben; Walk\u00fcrenruf\u003cbr\u003e\u003cimg src=\"d22.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d22.mp3\" controls\u003e"}, {"color": "lightblue", "id": 23, "label": "A Norn\u00e1k", "shape": "box", "title": "A Norn\u00e1k, mint az \u00f6ntudat el\u0151\u00e9rzetei\u003cbr\u003e\u003cimg src=\"d23.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d23.mp3\" controls\u003e"}, {"color": "lightblue", "id": 24, "label": "S\u00f6t\u00e9ts\u00e9g", "shape": "box", "title": "S\u00f6t\u00e9ts\u00e9g, mint az \u00f6ntudatlans\u00e1g szimb\u00f3luma\u003cbr\u003e\u003cimg src=\"d24.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d24.mp3\" controls\u003e"}, {"color": "lightblue", "id": 25, "label": "Napf\u00e9ny", "shape": "box", "title": "Napf\u00e9ny, mint az \u00f6ntudat visszat\u00e9r\u00e9se; Weltbegr\u00fc\u00dfung\u003cbr\u003e\u003cimg src=\"d25.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d25.mp3\" controls\u003e"}, {"color": "lightblue", "id": 26, "label": "Rajna sell\u0151i", "shape": "box", "title": "A rajnai sell\u0151k dala, mint az \u00e9retlen \u00e1rtatlans\u00e1gba val\u00f3 visszat\u00e9r\u00e9s cs\u00e1b\u00edt\u00e1sa\u003cbr\u003e\u003cimg src=\"d26.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d26.mp3\" controls\u003e"}, {"color": "lightblue", "id": 27, "label": "Az erd\u0151 madara", "shape": "box", "title": "Az erdei mad\u00e1r \u00e9nek\u00e9vel, mint az \u00e9retlen \u00e1rtatlans\u00e1g kezdem\u00e9nyez\u0151je\u003cbr\u003e\u003cimg src=\"d27.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d27.mp3\" controls\u003e"}, {"color": "lightblue", "id": 28, "label": "\u00c1rtatlan \u00f6r\u00f6m", "shape": "box", "title": "A nap f\u00e9ny\u00e9nek csillog\u00e1sa j\u00e1tszik az arannyal a v\u00edz alatt, a gyermekkor \u00e1rtatlan eml\u00e9kek\u00e9nt\u003cbr\u003e\u003cimg src=\"d28.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d28.mp3\" controls\u003e"}, {"color": "lightblue", "id": 29, "label": "Erdei susog\u00e1sok", "shape": "box", "title": "Az erdei susog\u00e1sok, mint Siegfried gyermeki \u00e1rtatlans\u00e1ga \u00e9s j\u00e1t\u00e9kos gondolatai\u003cbr\u003e\u003cimg src=\"d29.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d29.mp3\" controls\u003e"}, {"color": "lightblue", "id": 30, "label": "\u00c1rtatlan alv\u00e1s", "shape": "box", "title": "Br\u00fcnnhilde \u00e1rtatlan alv\u00e1sba val\u00f3 mer\u00fcl\u00e9se, amelyb\u0151l n\u0151v\u00e9 v\u00e1lva \u00e9bred majd\u003cbr\u003e\u003cimg src=\"d30.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d30.mp3\" controls\u003e"}, {"color": "lightblue", "id": 31, "label": "A rajna kicse", "shape": "box", "title": "Rheingold! Rheingold!\u003cbr\u003e\u003cimg src=\"d31.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d31.mp3\" controls\u003e"}, {"color": "lightblue", "id": 32, "label": "Rajnai sell\u0151k az Istenek alkony\u00e1ban", "shape": "box", "title": "A rajnai sell\u0151k \u00e9neke az Istenek alkony\u00e1ban\u003cbr\u003e\u003cimg src=\"d32.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d32.mp3\" controls\u003e"}, {"color": "lightblue", "id": 33, "label": "Rajnai sell\u0151k \u00f6r\u00f6me", "shape": "box", "title": "A rajnai sell\u0151k csal\u00f3ka \u00f6r\u00f6me\u003cbr\u003e\u003cimg src=\"d33.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d33.mp3\" controls\u003e"}, {"color": "lightblue", "id": 34, "label": "\u00c1rtatlan \u00f6r\u00f6m", "shape": "box", "title": "Val\u00f3d,\u00e1rtatlan \u00f6r\u00f6m\u003cbr\u003e\u003cimg src=\"d34.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d34.mp3\" controls\u003e"}, {"color": "lightblue", "id": 35, "label": "Siegmund", "shape": "box", "title": "Siegmund, mint a balszerencs\u00e9ben edzett h\u0151s\u003cbr\u003e\u003cimg src=\"d35.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d35.mp3\" controls\u003e"}, {"color": "lightblue", "id": 36, "label": "Sieglinde", "shape": "box", "title": "Sieglinde, mint a balszerencs\u00e9ben edzett h\u0151sn\u0151\u003cbr\u003e\u003cimg src=\"d36.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d36.mp3\" controls\u003e"}, {"color": "lightblue", "id": 37, "label": "Siegmund \u00e9s Sieglinde szerelme", "shape": "box", "title": "Siegmund \u00e9s Sieglinde szerelme\u003cbr\u003e\u003cimg src=\"d37.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d37.mp3\" controls\u003e"}, {"color": "lightblue", "id": 38, "label": "Boldogs\u00e1g", "shape": "box", "title": "Boldogs\u00e1g, \u00e9s a boldogs\u00e1g ut\u00e1ni v\u00e1gy\u003cbr\u003e\u003cimg src=\"d38.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d38.mp3\" controls\u003e"}, {"color": "lightblue", "id": 39, "label": "Az ital", "shape": "box", "title": "Az ital, amely \u00f6sszek\u00f6ti Siegmund \u00e9s Sieglinde sors\u00e1t\u003cbr\u003e\u003cimg src=\"d39.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d39.mp3\" controls\u003e"}, {"color": "lightblue", "id": 40, "label": "Gutrune", "shape": "box", "title": "Gutrune, mint a buk\u00e1sra rendelt h\u0151sn\u0151\u003cbr\u003e\u003cimg src=\"d40.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d40.mp3\" controls\u003e"}, {"color": "lightblue", "id": 41, "label": "A Gibichungok", "shape": "box", "title": "A Gibichung testv\u00e9rp\u00e1r, mint buk\u00e1sra rendelt p\u00e1r\u003cbr\u003e\u003cimg src=\"d41.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d41.mp3\" controls\u003e"}, {"color": "lightblue", "id": 42, "label": "\u00cdg\u00e9retek", "shape": "box", "title": "Tisztess\u00e9ges sz\u00e1nd\u00e9kok, a j\u00f3hiszem\u0171s\u00e9g l\u00e1tszata; az \u00edg\u00e9retek betart\u00e1s\u00e1nak l\u00e1tszata, a norm\u00e1lis \u00e9letre val\u00f3 v\u00e1gy\u003cbr\u003e\u003cimg src=\"d42.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d42.mp3\" controls\u003e"}, {"color": "lightblue", "id": 43, "label": "Nothung", "shape": "box", "title": "Nothung, mint az \u00edg\u00e9rt vagy v\u00e1gyott kard\u003cbr\u003e\u003cimg src=\"d43.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d43.mp3\" controls\u003e"}, {"color": "lightblue", "id": 44, "label": "Arany, mint \u00e9rt\u00e9k", "shape": "box", "title": "Az arany, mint val\u00f3di \u00e9rt\u00e9k\u003cbr\u003e\u003cimg src=\"d44.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d44.mp3\" controls\u003e"}, {"color": "lightblue", "id": 45, "label": "Kard, mint f\u00e9rfiass\u00e1g", "shape": "box", "title": "A kard mint a val\u00f3di f\u00e9rfiass\u00e1g jelk\u00e9pe\u003cbr\u003e\u003cimg src=\"d45.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d45.mp3\" controls\u003e"}, {"color": "lightblue", "id": 46, "label": "Vihar", "shape": "box", "title": "Vihar, mint a f\u00e9rfiass\u00e1g szelleme, Donner\u003cbr\u003e\u003cimg src=\"d46.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d46.mp3\" controls\u003e"}, {"color": "lightblue", "id": 47, "label": "A Walk\u0171r\u00f6k lovagl\u00e1sa", "shape": "box", "title": "A Walk\u0171r	 \u00f6k, mint a n\u0151k f\u00e9rfias r\u00e9sze\u003cbr\u003e\u003cimg src=\"d47.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d47.mp3\" controls\u003e"}, {"color": "lightblue", "id": 48, "label": "Siegfried k\u00fcrtje", "shape": "box", "title": "Siegfried k\u00fcrtje, mint szabad szellem\u00e9nek jelk\u00e9pe\u003cbr\u003e\u003cimg src=\"d48.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d48.mp3\" controls\u003e"}, {"color": "lightblue", "id": 49, "label": "Hagen napja", "shape": "box", "title": "Hagen napj\u00e1nak hajnala\u003cbr\u003e\u003cimg src=\"d49.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d49.mp3\" controls\u003e"}, {"color": "lightblue", "id": 50, "label": "Mime, mint a kov\u00e1cs", "shape": "box", "title": "Mime, mint a kov\u00e1cs, \u00e9s \u00e1ltal\u00e1ban a kov\u00e1csol\u00e1s\u003cbr\u003e\u003cimg src=\"d50.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d50.mp3\" controls\u003e"}, {"color": "lightblue", "id": 51, "label": "Mime, a makacs", "shape": "box", "title": "Mime kitart\u00e1sa \u00e9s megsz\u00e1llotts\u00e1ga\u003cbr\u003e\u003cimg src=\"d51.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d51.mp3\" controls\u003e"}, {"color": "lightblue", "id": 52, "label": "Siegfried, mint kov\u00e1cs", "shape": "box", "title": "Siegfried h\u0151sies kov\u00e1csol\u00e1sa, mint ifj\u00fa lend\u00fclete\u003cbr\u003e\u003cimg src=\"d52.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d52.mp3\" controls\u003e"}, {"color": "lightblue", "id": 53, "label": "Siegfried ereje", "shape": "box", "title": "Siegfried ifj\u00fa ereje, az \u00e9let szeretete\u003cbr\u003e\u003cimg src=\"d53.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d53.mp3\" controls\u003e"}, {"color": "lightblue", "id": 54, "label": "Hagen vazallusai", "shape": "box", "title": "A vazallusok, mint a f\u00e9rfiak er\u0151s vil\u00e1ga\u003cbr\u003e\u003cimg src=\"d54.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d54.mp3\" controls\u003e"}, {"color": "lightblue", "id": 55, "label": "Siegfried mer\u00e9szs\u00e9ge", "shape": "box", "title": "Siegfried lend\u00fclete a szerelemben; Liebesentschlu\u00df\u003cbr\u003e\u003cimg src=\"d55.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d55.mp3\" controls\u003e"}, {"color": "lightblue", "id": 56, "label": "Siegfried szabads\u00e1ga", "shape": "box", "title": "Siegfried bonyodalmakt\u00f3l mentes, heroikus szabads\u00e1ga\u003cbr\u003e\u003cimg src=\"d56.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d56.mp3\" controls\u003e"}, {"color": "lightblue", "id": 57, "label": "Fafner", "shape": "box", "title": "Fafner, mint a tehetetlens\u00e9g, mint az \u00f6ntudat h\u00e1tra h\u00faz\u00f3 ereje; Schlangenwurm\u003cbr\u003e\u003cimg src=\"d57.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d57.mp3\" controls\u003e"}, {"color": "lightblue", "id": 58, "label": "\u00d3ri\u00e1sok ereje", "shape": "box", "title": "Az \u00f3ri\u00e1sok, mint a brut\u00e1lis er\u0151 megtestes\u00edt\u0151i; Fafner mint s\u00e1rk\u00e1ny\u003cbr\u003e\u003cimg src=\"d58.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d58.mp3\" controls\u003e"}, {"color": "lightblue", "id": 59, "label": "\u00d3ri\u00e1s tekint\u00e9lye", "shape": "box", "title": "Az \u00f3ri\u00e1sok, mint a sz\u00fcl\u0151i tekint\u00e9ly brut\u00e1lis aspektusa\u003cbr\u003e\u003cimg src=\"d59.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d59.mp3\" controls\u003e"}, {"color": "lightblue", "id": 60, "label": "Hunding", "shape": "box", "title": "Hunding, mint Siegmund s\u00f6t\u00e9t \u00e1rny\u00e9ka\u003cbr\u003e\u003cimg src=\"d60.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d60.mp3\" controls\u003e"}, {"color": "lightblue", "id": 61, "label": "Hagen", "shape": "box", "title": "Hagen, mint Siegfried s\u00f6t\u00e9t \u00e1rny\u00e9ka; A Gibichung faj negat\u00edv aspektusa\u003cbr\u003e\u003cimg src=\"d61.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d61.mp3\" controls\u003e"}, {"color": "lightblue", "id": 62, "label": "Hal\u00e1l", "shape": "box", "title": "A hal\u00e1l s\u00f6t\u00e9ts\u00e9ge (Siegfried temet\u00e9si menete)\u003cbr\u003e\u003cimg src=\"d62.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d62.mp3\" controls\u003e"}, {"color": "lightblue", "id": 63, "label": "Valhalla", "shape": "box", "title": "Valhalla, mint teljes\u00edtm\u00e9ny; Wotan eredeti, kreat\u00edv gondolatai\u003cbr\u003e\u003cimg src=\"d63.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d63.mp3\" controls\u003e"}, {"color": "lightblue", "id": 64, "label": "Sziv\u00e1rv\u00e1nyh\u00edd", "shape": "box", "title": "A sziv\u00e1rv\u00e1ny h\u00edd Valhall\u00e1ba\u003cbr\u003e\u003cimg src=\"d64.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d64.mp3\" controls\u003e"}, {"color": "lightblue", "id": 65, "label": "Siegfried tettei", "shape": "box", "title": "Siegfried h\u0151si tettei, mint az \u00f6r\u00f6kk\u00e9 \u00fajj\u00e1sz\u00fclet\u0151 ifj\u00fas\u00e1g szelleme\u003cbr\u003e\u003cimg src=\"d65.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d65.mp3\" controls\u003e"}, {"color": "lightblue", "id": 66, "label": "A W\u00e4lsungok trag\u00e9di\u00e1ja", "shape": "box", "title": "A W\u00e4lsung faj tragikus, de h\u0151si sorsa\u003cbr\u003e\u003cimg src=\"d66.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d66.mp3\" controls\u003e"}, {"color": "lightblue", "id": 67, "label": "Gunter, mint h\u0151s", "shape": "box", "title": "Gunther ill\u00fazi\u00f3val terhelt h\u0151siesked\u00e9se,\u003cbr\u003eamely a W\u00e4lsung fajnak az \u00e1rnyakkal terhelt gyenges\u00e9g\u00e9re utal,\u003cbr\u003epl. Siegfried Gunther \u00e1rny\u00e9k\u00e1nak egy r\u00e9sze\u003cbr\u003e\u003cimg src=\"d67.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d67.mp3\" controls\u003e"}, {"color": "lightblue", "id": 68, "label": "V\u00e9sz vagy b\u00e1nat", "shape": "box", "title": "V\u00e9sz vagy b\u00e1nat, ak\u00e1r elfogadj\u00e1k, ak\u00e1r nem\u003cbr\u003e\u003cimg src=\"d68.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d68.mp3\" controls\u003e"}, {"color": "lightblue", "id": 69, "label": "Agit\u00e1ci\u00f3", "shape": "box", "title": "Agit\u00e1ci\u00f3, bele\u00e9rtve a szenved\u00e9lyt \u00e9s az egy\u00fctt\u00e9rz\u00e9st; Flucht\u003cbr\u003e\u003cimg src=\"d69.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d69.mp3\" controls\u003e"}, {"color": "lightblue", "id": 70, "label": "Wotan csal\u00f3d\u00e1sa", "shape": "box", "title": "Wotan csal\u00f3d\u00e1sa\u003cbr\u003e\u003cimg src=\"d70.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d70.mp3\" controls\u003e"}, {"color": "lightblue", "id": 71, "label": "Mime d\u00fche", "shape": "box", "title": "Mime d\u00fche\u003cbr\u003e\u003cimg src=\"d71.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d71.mp3\" controls\u003e"}, {"color": "lightblue", "id": 72, "label": "Mime panaszkod\u00e1sa", "shape": "box", "title": "Mime panaszkod\u00e1sa\u003cbr\u003e\u003cimg src=\"d72.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d72.mp3\" controls\u003e"}, {"color": "lightblue", "id": 73, "label": "Wotan l\u00e1ndzs\u00e1ja", "shape": "box", "title": "A l\u00e1ndzsa Wotan er\u0151s akarat\u00e1nak \u00e9s a szerz\u0151d\u00e9sek jelk\u00e9pe, amelyek egyben korl\u00e1tozz\u00e1k is \u0151t\u003cbr\u003e\u003cimg src=\"d73.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d73.mp3\" controls\u003e"}, {"color": "lightblue", "id": 74, "label": "A vihar", "shape": "box", "title": "A vihar a Walk\u0171r nyit\u00e1ny\u00e1b\u00f3l, mint Wotan sorssal szembeni ellen\u00e1ll\u00e1sa\u003cbr\u003e\u003cimg src=\"d74.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d74.mp3\" controls\u003e"}, {"color": "lightblue", "id": 75, "label": "Nyugtalan sz\u00f6v\u00e9s", "shape": "box", "title": "Nyugtalan sz\u00f6v\u00e9s vagy nyugtalans\u00e1g; Rachebund (\u00f6sszek\u00f6ttet\u00e9s\u003cbr\u003e\u003cimg src=\"d75.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d75.mp3\" controls\u003e"}, {"color": "lightblue", "id": 76, "label": "Lemond\u00e1s", "shape": "box", "title": "Lemond\u00e1s, gyakran a sors elfogad\u00e1s\u00e1val j\u00e1r\u003cbr\u003e\u003cimg src=\"d76.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d76.mp3\" controls\u003e"}, {"color": "lightblue", "id": 77, "label": "W\u00e4lsungok, mint sors", "shape": "box", "title": "A W\u00e4lsung faj, mint a sors eszk\u00f6zei\u003cbr\u003e\u003cimg src=\"d77.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d77.mp3\" controls\u003e"}, {"color": "lightblue", "id": 78, "label": "Siegfried h\u0151siess\u00e9ge", "shape": "box", "title": "Siegfried h\u0151siess\u00e9ge, mint sors\u00e1nak elfogad\u00e1sa\u003cbr\u003e\u003cimg src=\"d78.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d78.mp3\" controls\u003e"}, {"color": "lightblue", "id": 79, "label": "Elfogadott sors", "shape": "box", "title": "Elfogadott sors\u003cbr\u003e\u003cimg src=\"d79.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d79.mp3\" controls\u003e"}, {"color": "lightblue", "id": 80, "label": "Odaad\u00e1s", "shape": "box", "title": "Odaad\u00e1s, k\u00fcl\u00f6n\u00f6sen Siegfried\u00e9 Br\u00fcnnhilde fel\u00e9, mint a sors \u00e1ltal elrendelt k\u00f6tel\u00e9k\u003cbr\u003e\u003cimg src=\"d80.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d80.mp3\" controls\u003e"}, {"color": "lightblue", "id": 81, "label": "Elfogadott b\u00e1nat", "shape": "box", "title": "B\u00e1nat, mint az elker\u00fclhetetlen szenved\u00e9s elfogad\u00e1sa\u003cbr\u003e\u003cimg src=\"d81.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d81.mp3\" controls\u003e"}, {"color": "lightblue", "id": 82, "label": "Wotan b\u00e1nata", "shape": "box", "title": "Wotan b\u00e1nata Br\u00fcnnhilde-t\u0151l val\u00f3 elb\u00facs\u00faz\u00e1sn\u00e1l\u003cbr\u003e\u003cimg src=\"d82.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d82.mp3\" controls\u003e"}, {"color": "lightblue", "id": 83, "label": "Lemond\u00e1s", "shape": "box", "title": "Lemond\u00e1s\u003cbr\u003e\u003cimg src=\"d83.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d83.mp3\" controls\u003e"}, {"color": "lightblue", "id": 84, "label": "Er\u0151teljes sors", "shape": "box", "title": "Sors mint az a hatalom, amelynek mindenki v\u00e9g\u00fcl engedelmeskedik\u003cbr\u003e\u003cimg src=\"d84.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d84.mp3\" controls\u003e"}, {"color": "lightblue", "id": 85, "label": "Elker\u00fclhetetlen sors", "shape": "box", "title": "A sors elker\u00fclhetetlens\u00e9ge\u003cbr\u003e\u003cimg src=\"d85.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d85.mp3\" controls\u003e"}, {"color": "lightblue", "id": 86, "label": "Siegmund szerelmi dala", "shape": "box", "title": "Siegmund dala a tavasz k\u00f6zeledt\u00e9r\u0151l, mint a teljes\u00fcl\u00e9s tapasztalata Sieglinde-vel\u003cbr\u003e(Donnington megjegyzi, hogy b\u00e1r sz\u00e9p \u00e9s eml\u00e9kezetes dallam,\u003cbr\u003ede \u00e1riajellege miatt kiss\u00e9 kil\u00f3g a Ring zenei sz\u00f6vet\u00e9b\u0151l)\u003cbr\u003e\u003cimg src=\"d86.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d86.mp3\" controls\u003e"}, {"color": "lightblue", "id": 87, "label": "Br\u00fcnnhilde szerelme", "shape": "box", "title": "Br\u00fcnnhilde szent szerelme\u003cbr\u003e\u003cimg src=\"d87.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d87.mp3\" controls\u003e"}, {"color": "lightblue", "id": 88, "label": "Br\u00fcnnhilde, mint n\u0151", "shape": "box", "title": "Br\u00fcnnhilde, mint szeret\u0151 n\u0151\u003cbr\u003e\u003cimg src=\"d88.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d88.mp3\" controls\u003e"}, {"color": "lightblue", "id": 89, "label": "Siegfried szerelme", "shape": "box", "title": "Siegfried gyeng\u00e9d szerelme Br\u00fcnnhilde ir\u00e1nt\u003cbr\u003e\u003cimg src=\"d89.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d89.mp3\" controls\u003e"}, {"color": "lightblue", "id": 90, "label": "Szerelem, mint beteljes\u00fcl\u00e9s", "shape": "box", "title": "Szerelem, mint beteljes\u00fcl\u00e9s\u003cbr\u003e\u003cimg src=\"d90.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d90.mp3\" controls\u003e"}, {"color": "lightblue", "id": 91, "label": "\u00c1tv\u00e1ltoz\u00e1s", "shape": "box", "title": "\u00c1tv\u00e1ltoz\u00e1s\u003cbr\u003e\u003cimg src=\"d91.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"d91.mp3\" controls\u003e"}, {"color": "lightblue", "id": 92, "label": "Fenyeget\u00e9s", "shape": "box", "title": "Alberich \u00f6k\u00f6llel fenyegeti a rajnai sell\u0151ket\u003cbr\u003e\u003cimg src=\"w4.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"w4.mp3\" controls\u003e"}, {"color": "lightblue", "id": 94, "label": "Nibelhiem", "shape": "box", "title": "A Nibelungok otthona; \u00e9jszaka, kapzsis\u00e1g, neheztel\u00e9s\u003cbr\u003e\u003cimg src=\"m20.jpg\"\u003e\u003cbr\u003e\u003caudio src=\"m20.mp3\" controls\u003e"}];
+             var myEdges = [{"from": 2, "to": 1, "width": 6}, {"from": 26, "to": 1, "width": 6}, {"from": 26, "to": 27, "width": 3}, {"from": 92, "to": 50, "width": 3}, {"from": 15, "label": "vari\u00e1ci\u00f3", "to": 13, "width": 1}, {"from": 13, "label": "ford.", "to": 8, "width": 1}, {"dashes": "dot", "from": 7, "to": 8}, {"from": 4, "label": "vari\u00e1ci\u00f3", "to": 8, "width": 1}, {"from": 7, "label": "maj/min", "to": 4, "width": 1}, {"from": 4, "label": "ford.", "to": 3, "width": 1}, {"from": 3, "label": "maj/min", "to": 2, "width": 1}, {"dashes": "dot", "from": 31, "to": 26}, {"from": 31, "to": 68, "width": 3}, {"dashes": "dot", "from": 68, "to": 4}, {"from": 44, "to": 1, "width": 6}, {"from": 44, "to": 45, "width": 3}, {"from": 45, "to": 1, "width": 6}, {"dashes": "dot", "from": 76, "to": 68}, {"from": 76, "to": 78, "width": 3}, {"dashes": "dot", "from": 18, "to": 16}, {"dashes": "dot", "from": 18, "to": 68}, {"dashes": "dot", "from": 68, "to": 16}, {"dashes": "dot", "from": 20, "to": 16}, {"from": 9, "to": 8, "width": 6}, {"dashes": "dot", "from": 9, "to": 61}, {"from": 63, "to": 8, "width": 6}, {"dashes": "dot", "from": 94, "to": 57}, {"dashes": "dot", "from": 38, "to": 57}, {"dashes": "dot", "from": 57, "to": 18}, {"from": 69, "label": "vari\u00e1ci\u00f3", "to": 66, "width": 1}, {"from": 66, "label": "maj/min", "to": 44, "width": 1}, {"dashes": "dot", "from": 66, "to": 3}, {"dashes": "dot", "from": 66, "to": 42}, {"dashes": "dot", "from": 66, "to": 78}, {"dashes": "dot", "from": 42, "to": 40}, {"dashes": "dot", "from": 42, "to": 41}, {"dashes": "dot", "from": 42, "to": 61}, {"dashes": "dot", "from": 40, "to": 37}, {"from": 40, "label": "vari\u00e1ci\u00f3", "to": 41, "width": 1}, {"dashes": "dot", "from": 41, "to": 7}, {"dashes": "dot", "from": 61, "to": 40}, {"dashes": "dot", "from": 2, "to": 40}, {"dashes": "dot", "from": 61, "to": 41}, {"dashes": "dot", "from": 58, "to": 18}, {"from": 7, "label": "maj/min", "to": 76, "width": 1}, {"dashes": "dot", "from": 73, "to": 70}, {"from": 70, "to": 68, "width": 6}, {"dashes": "dot", "from": 70, "to": 79}, {"from": 79, "to": 4, "width": 6}, {"dashes": "dot", "from": 79, "to": 76}, {"dashes": "dot", "from": 79, "to": 73}, {"from": 59, "to": 58, "width": 3}, {"from": 59, "to": 73, "width": 3}, {"dashes": "dot", "from": 5, "to": 70}, {"from": 5, "to": 3, "width": 6}, {"from": 4, "to": 5, "width": 6}, {"dashes": "dot", "from": 4, "to": 70}, {"from": 90, "to": 87, "width": 3}, {"from": 90, "to": 88, "width": 3}, {"from": 90, "to": 89, "width": 3}, {"dashes": "dot", "from": 90, "to": 69}, {"dashes": "dot", "from": 90, "to": 86}, {"from": 87, "to": 40, "width": 6}, {"dashes": "dot", "from": 15, "to": 16}, {"dashes": "dot", "from": 15, "to": 17}, {"dashes": "dot", "from": 87, "to": 6}, {"from": 88, "to": 77, "width": 6}, {"dashes": "dot", "from": 88, "to": 76}, {"dashes": "dot", "from": 88, "to": 86}, {"dashes": "dot", "from": 77, "to": 70}, {"dashes": "dot", "from": 77, "to": 35}, {"dashes": "dot", "from": 77, "to": 66}, {"dashes": "dot", "from": 77, "to": 76}, {"dashes": "dot", "from": 77, "to": 68}, {"from": 10, "to": 2, "width": 6}, {"dashes": "dot", "from": 10, "to": 8}, {"dashes": "dot", "from": 11, "to": 8}, {"dashes": "dot", "from": 12, "to": 8}, {"dashes": "dot", "from": 14, "to": 13}, {"dashes": "dot", "from": 17, "to": 16}, {"dashes": "dot", "from": 17, "to": 82}, {"dashes": "dot", "from": 82, "to": 66}, {"dashes": "dot", "from": 82, "to": 76}, {"dashes": "dot", "from": 82, "to": 81}, {"from": 18, "to": 19, "width": 6}, {"from": 21, "to": 20, "width": 6}, {"dashes": "dot", "from": 21, "to": 18}, {"dashes": "dot", "from": 22, "to": 20}, {"dashes": "dot", "from": 22, "to": 8}, {"dashes": "dot", "from": 22, "to": 13}, {"dashes": "dot", "from": 22, "to": 16}, {"from": 23, "to": 22, "width": 6}, {"dashes": "dot", "from": 23, "to": 16}, {"dashes": "dot", "from": 24, "to": 25}, {"dashes": "dot", "from": 25, "to": 17}, {"dashes": "dot", "from": 25, "to": 16}, {"from": 6, "to": 2, "width": 6}, {"dashes": "dot", "from": 28, "to": 26}, {"dashes": "dot", "from": 28, "to": 29}, {"from": 28, "to": 2, "width": 6}, {"dashes": "dot", "from": 29, "to": 20}, {"dashes": "dot", "from": 30, "to": 26}, {"dashes": "dot", "from": 30, "to": 27}, {"from": 32, "to": 31, "width": 6}, {"from": 33, "to": 31, "width": 6}, {"from": 33, "label": "ford.", "to": 21, "width": 1}, {"dashes": "dot", "from": 34, "to": 33}, {"dashes": "dot", "from": 34, "to": 26}, {"dashes": "dot", "from": 35, "to": 70}, {"dashes": "dot", "from": 35, "to": 73}, {"dashes": "dot", "from": 35, "to": 74}, {"from": 36, "to": 35, "width": 3}, {"from": 36, "label": "ford.", "to": 8, "width": 1}, {"from": 37, "to": 69, "width": 6}, {"dashes": "dot", "from": 38, "to": 6}, {"dashes": "dot", "from": 37, "to": 38}, {"dashes": "dot", "from": 38, "to": 68}, {"dashes": "dot", "from": 39, "to": 35}, {"dashes": "dot", "from": 39, "to": 36}, {"from": 43, "to": 45, "width": 6}, {"dashes": "dot", "from": 43, "to": 42}, {"dashes": "dot", "from": 46, "to": 44}, {"dashes": "dot", "from": 46, "to": 45}, {"from": 47, "label": "vari\u00e1ci\u00f3", "to": 46, "width": 1}, {"from": 48, "to": 46, "width": 6}, {"from": 48, "to": 63, "width": 6}, {"from": 48, "to": 65, "width": 6}, {"from": 49, "to": 1, "width": 6}, {"from": 49, "to": 2, "width": 6}, {"from": 51, "label": "vari\u00e1ci\u00f3", "to": 50, "width": 1}, {"from": 52, "to": 50, "width": 6}, {"dashes": "dot", "from": 52, "to": 58}, {"from": 53, "to": 58, "width": 6}, {"dashes": "dot", "from": 70, "to": 58}, {"dashes": "dot", "from": 53, "to": 46}, {"dashes": "dot", "from": 53, "to": 52}, {"from": 54, "label": "ford.", "to": 53, "width": 1}, {"from": 55, "to": 53, "width": 6}, {"dashes": "dot", "from": 56, "to": 52}, {"dashes": "dot", "from": 56, "to": 70}, {"dashes": "dot", "from": 56, "to": 73}, {"dashes": "dot", "from": 60, "to": 58}, {"dashes": "dot", "from": 60, "to": 62}, {"dashes": "dot", "from": 60, "to": 69}, {"dashes": "dot", "from": 62, "to": 58}, {"from": 64, "to": 1, "width": 6}, {"dashes": "dot", "from": 64, "to": 2}, {"dashes": "dot", "from": 64, "to": 45}, {"dashes": "dot", "from": 67, "to": 63}, {"dashes": "dot", "from": 67, "to": 66}, {"from": 71, "label": "vari\u00e1ci\u00f3", "to": 68, "width": 1}, {"dashes": "dot", "from": 72, "to": 68}, {"dashes": "dot", "from": 72, "to": 70}, {"from": 72, "label": "maj/min", "to": 56, "width": 1}, {"from": 74, "to": 73, "width": 6}, {"dashes": "dot", "from": 75, "to": 70}, {"dashes": "dot", "from": 75, "to": 68}, {"from": 80, "label": "vari\u00e1ci\u00f3", "to": 79, "width": 1}, {"dashes": "dot", "from": 83, "to": 76}, {"from": 83, "to": 32, "width": 3}, {"dashes": "dot", "from": 84, "to": 83}, {"from": 84, "to": 68, "width": 6}, {"from": 84, "label": "vari\u00e1ci\u00f3", "to": 85, "width": 1}, {"dashes": "dot", "from": 84, "to": 79}, {"dashes": "dot", "from": 86, "to": 26}, {"dashes": "dot", "from": 86, "to": 7}, {"dashes": "dot", "from": 86, "to": 37}, {"dashes": "dot", "from": 89, "to": 32}, {"dashes": "dot", "from": 89, "to": 34}, {"dashes": "dot", "from": 89, "to": 65}, {"dashes": "dot", "from": 89, "to": 80}, {"dashes": "dot", "from": 89, "to": 87}, {"dashes": "dot", "from": 89, "to": 63}, {"dashes": "dot", "from": 89, "to": 2}, {"dashes": "dot", "from": 91, "to": 88}];
+         
+             for (var mynode of myNodes) {
+                 if ("title" in mynode) {
+               mynode.title =htmlTitle(mynode.title);
+             } else {
+                 console.log("Object does not have title key");
+                 }
+             }
+             console.log(myNodes);
+         
+             for (var myedge of myEdges) {
+                 if ("title" in myedge) {
+               myedge.title =htmlTitle(myedge.title);
+             } else {
+                 console.log("Object does not have title key");
+                 }
+             }                                  
+             console.log(myEdges);
+         
+             nodes = new vis.DataSet(myNodes);
+             edges = new vis.DataSet(myEdges);
+         
+             nodeColors = {};
+             allNodes = nodes.get({ returnType: "Object" });
+             for (nodeId in allNodes) {
+               nodeColors[nodeId] = allNodes[nodeId].color;
+             }
+             allEdges = edges.get({ returnType: "Object" });
+             // adding nodes and edges to the graph
+             data = {nodes: nodes, edges: edges};
+         
+             var options = {
+         "configure": {
+         "enabled": false
+         },
+         "edges": {
+         "color": {
+         "inherit": true
+         },
+         "smooth": {
+         "enabled": true,
+         "type": "dynamic"
+         }
+         },
+         "interaction": {
+         "dragNodes": true,
+         "hideEdgesOnDrag": false,
+         "hideNodesOnDrag": false
+         },
+         "physics": {
+         "barnesHut": {
+         "avoidOverlap": 0.8,
+         "centralGravity": 0.5,
+         "damping": 0.09,
+         "gravitationalConstant": -950,
+         "springConstant": 0.001,
+         "springLength": 150
+         },
+         "enabled": true,
+         "stabilization": {
+         "enabled": true,
+         "fit": true,
+         "iterations": 1000,
+         "onlyDynamicEdges": false,
+         "updateInterval": 50
+         }
+         }
+         };
+
+             network = new vis.Network(container, data, options);
+               network.on("click", neighbourhoodHighlight);
+             return network;
+         
+         }
+         drawGraph();
+         // Select the target node
+         var targetNode = document.querySelector('.card-body');
+         
+         // Options for the observer (which mutations to observe)
+         var config = { attributes: true, childList: true, subtree: true };
+         
+         // Callback function to execute when mutations are observed
+         var callback = function(mutationsList, observer) {
+         for(var mutation of mutationsList) {
+         if (mutation.type === 'childList') {
+         // Check if any of the added nodes are audio elements
+         mutation.addedNodes.forEach(function(node) {
+           if (node.tagName === 'AUDIO') {
+               // Queue the play action to be triggered by user interaction
+               node.setAttribute('data-autoplay', 'true');
+           } else if (node.nodeType === Node.ELEMENT_NODE) {
+               // Recursively search for audio elements within added nodes
+               searchForAudioElements(node);
+           }
+         });
+         }
+         }
+         };
+         
+         // Function to recursively search for audio elements within added nodes
+         function searchForAudioElements(node) {
+         if (node.tagName === 'AUDIO') {
+         // Queue the play action to be triggered by user interaction
+         node.setAttribute('data-autoplay', 'true');
+         } else {
+         var children = node.children;
+         for (var i = 0; i < children.length; i++) {
+         searchForAudioElements(children[i]);
+         }
+         }
+         }
+         
+         // Create an observer instance linked to the callback function
+         var observer = new MutationObserver(callback);
+         
+         // Start observing the target node for configured mutations
+         if (targetNode) {
+         observer.observe(targetNode, config);
+         
+         // Add event listener to the target node for user interaction
+         targetNode.addEventListener('click', function(event) {
+         // Trigger autoplay for audio elements
+         var audioElements = targetNode.querySelectorAll('audio[data-autoplay="true"]');
+         audioElements.forEach(function(audio) {
+         audio.play();
+         });
+         });
+         } else {
+         console.error("Target node '.vis-tooltip' not found.");
+         }
+         
+      </script>
+   </body>
+</html>
